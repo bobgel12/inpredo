@@ -9,8 +9,8 @@ import uuid
 ad = genfromtxt('../financial_data/eurusd.csv', delimiter=',' ,dtype=str)
 pd = np.flipud(ad)
 
-buy_dir = '../data/train/buy/'
-sell_dir = '../data/train/sell/'
+buy_dir = '/Users/phucle/SJSU/inpredo/src/data/train/buy/'
+sell_dir = '/Users/phucle/SJSU/inpredo/src/data/train/sell/'
 
 def convolve_sma(array, period):
     return np.convolve(array, np.ones((period,))/period, mode='valid')
@@ -60,16 +60,16 @@ def graphwerk(start, finish):
             print('last value: ' + str(close[-1]))
             print('next value: ' + str(close_next))
             print('sell')
-            plt.savefig(sell_dir + str(uuid.uuid4()) +'.jpg', bbox_inches='tight')
+            plt.savefig(sell_dir + str(uuid.uuid4()) +'.png', bbox_inches='tight')
     else:
             print('close value is smaller')
             print('last value: '+ str(close[-1]))
             print('next value: ' + str(close_next))
             print('buy')
-            plt.savefig(buy_dir + str(uuid.uuid4())+'.jpg', bbox_inches='tight')
+            plt.savefig(buy_dir + str(uuid.uuid4())+'.png', bbox_inches='tight')
 
 
-    #plt.show()
+    # plt.show()
     open.clear()
     close.clear()
     volume.clear()

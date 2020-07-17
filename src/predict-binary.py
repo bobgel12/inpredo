@@ -7,10 +7,10 @@ from keras.models import Sequential, load_model
 
 
 img_width, img_height = 150, 150
-model_path = '../src/models/model.h5'
-weights_path = '../src/models/weights'
+model_path = '/Users/phucle/SJSU/inpredo/src/models/model.h5'
+weights_path = '/Users/phucle/SJSU/inpredo/src/models/weights'
 model = load_model(model_path)
-test_path = '../data/validation'
+test_path = './data/validation'
 
 def predict(file):
   x = load_img(file, target_size=(img_width,img_height))
@@ -47,33 +47,37 @@ fb = 0
 fs = 0
 na = 0
 
-for i, ret in enumerate(os.walk(data_path + '/test/buy')):
-  for i, filename in enumerate(ret[2]):
-    if filename.startswith("."):
-      continue
-    print("Label: buy")
-    result = predict(ret[0] + '/' + filename)
-    if result == "buy":
-      tb += 1
-    elif result == 'n/a':
-      print('no action')
-      na += 1
-    else:
-      fb += 1
+for i, ret in enumerate(os.walk(test_path + '/buy')):
+    print("ret", ret)
+    for i, filename in enumerate(ret[2]):
+        if filename.startswith("."):
+          continue
+        print("Label: buy")
+        print("Filename", filename)
+        result = predict(ret[0] + '/' + filename)
+        if result == "buy":
+          tb += 1
+        elif result == 'n/a':
+          print('no action')
+          na += 1
+        else:
+          fb += 1
 
-for i, ret in enumerate(os.walk(data_path + '/test/sell')):
-  for i, filename in enumerate(ret[2]):
-    if filename.startswith("."):
-      continue
-    print("Label: sell")
-    result = predict(ret[0] + '/' + filename)
-    if result == "sell":
-      ts += 1
-    elif result == 'n/a':
-      print('no action')
-      na += 1
-    else:
-      fs += 1
+for i, ret in enumerate(os.walk(test_path + '/sell')):
+    print("ret", ret)
+    for i, filename in enumerate(ret[2]):
+        if filename.startswith("."):
+          continue
+        print("Label: sell")
+        print("Filename", filename)
+        result = predict(ret[0] + '/' + filename)
+        if result == "sell":
+          ts += 1
+        elif result == 'n/a':
+          print('no action')
+          na += 1
+        else:
+          fs += 1
 
 """
 Check metrics
